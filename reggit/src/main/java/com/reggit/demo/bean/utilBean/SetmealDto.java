@@ -1,7 +1,7 @@
 package com.reggit.demo.bean.utilBean;
 
-import com.itheima.reggie.bean.Setmeal;
-import com.itheima.reggie.bean.SetmealDish;
+import com.reggit.demo.bean.Setmeal;
+import com.reggit.demo.bean.SetmealDish;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

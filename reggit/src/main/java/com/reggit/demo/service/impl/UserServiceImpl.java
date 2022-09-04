@@ -1,9 +1,10 @@
 package com.reggit.demo.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.itheima.reggie.bean.User;
-import com.itheima.reggie.mapper.UserMapper;
-import com.itheima.reggie.service.UserService;
+
+import com.reggit.demo.bean.User;
+import com.reggit.demo.mapper.UserMapper;
+import com.reggit.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +17,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public User findUser(String phone) {
-        User user = mapper.findUser(Long.parseLong(phone));
-        return user;
+        return null;
     }
 
     @Override
     public int addUser(User user) {
-        int i = mapper.addUser(user);
-        return i;
+        return 0;
     }
 }

@@ -1,11 +1,12 @@
 package com.reggit.demo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.itheima.reggie.bean.ShoppingCart;
-import com.itheima.reggie.bean.User;
-import com.itheima.reggie.bean.util.BaseContext;
-import com.itheima.reggie.mapper.ShoppingCartMapper;
-import com.itheima.reggie.service.ShoppingCartService;
+
+import com.reggit.demo.bean.ShoppingCart;
+import com.reggit.demo.bean.User;
+import com.reggit.demo.bean.util.BaseContext;
+import com.reggit.demo.mapper.ShoppingCartMapper;
+import com.reggit.demo.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,50 +36,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      */
     @Override
     public ShoppingCart add(ShoppingCart shoppingCart) {  // 张三 ， 红烧肉
-        //1. 先查询【按照用户id 和 菜品id | 套餐id】
-
-        //1.1 构建条件对象
-        LambdaQueryWrapper<ShoppingCart> lqw = new LambdaQueryWrapper<>();
-
-        //1.2 追加条件
-        //a. 设置用户id
-        lqw.eq(ShoppingCart::getUserId , BaseContext.getCurrentId());
-
-        //b. 设置菜品或者套餐的id
-        if(shoppingCart.getDishId() != null){
-            //如果从页面过来的是菜品，那么就设置菜品的id
-            lqw.eq(ShoppingCart::getDishId , shoppingCart.getDishId());
-        }else{
-            //如果从页面过来的是套餐，那么就设置套餐的id
-            lqw.eq( ShoppingCart::getSetmealId , shoppingCart.getSetmealId());
-        }
-
-        //1.3 执行查询
-        ShoppingCart cartInDB = shoppingCartMapper.selectOne(lqw);
-
-        //2 判断到底有还是没有数据
-        if(cartInDB == null){
-            // 表明在数据库里面这个用户没有添加过这个菜品|套餐 :: 添加的操作
-
-            //补充数据
-            shoppingCart.setUserId(BaseContext.getCurrentId()); //用户id
-            shoppingCart.setCreateTime(LocalDateTime.now()); //创建时间
-            shoppingCart.setNumber(1); //设置数量
-            //添加
-            shoppingCartMapper.insert(shoppingCart);
-
-            return shoppingCart;
-
-        }else{
-            // 表明在数据库里面这个用户有添加过这个菜品|套餐 :: 更新的操作
-            cartInDB.setNumber(cartInDB.getNumber() + 1);
-
-            shoppingCartMapper.updateById(cartInDB);
-
-            return cartInDB;
-        }
-
-
+        return null;
 
 
     }
@@ -90,9 +48,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      */
     @Override
     public List<ShoppingCart> list() {
-        LambdaQueryWrapper<ShoppingCart> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(ShoppingCart::getUserId , BaseContext.getCurrentId());
-        return shoppingCartMapper.selectList(lqw);
+        return null;
     }
 
     /**
@@ -102,20 +58,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      */
     @Override
     public int clean() {
-        LambdaQueryWrapper<ShoppingCart> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(ShoppingCart::getUserId , BaseContext.getCurrentId());
-        return shoppingCartMapper.delete(lqw);
+        return 0;
     }
 
     @Override
     public int reduce(ShoppingCart shoppingCart, User id) {
-        LambdaQueryWrapper<ShoppingCart> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(ShoppingCart::getDishId,shoppingCart.getDishId()).eq(ShoppingCart::getUserId,id.getId());
-        shoppingCart.setNumber(shoppingCartMapper.selectOne(lqw).getNumber()-1);
-        if (shoppingCart.getNumber()<=0){
-            shoppingCartMapper.delete(lqw);
-            return -1;
-        }
-        return shoppingCartMapper.update(shoppingCart,lqw);
+        return 0;
     }
 }

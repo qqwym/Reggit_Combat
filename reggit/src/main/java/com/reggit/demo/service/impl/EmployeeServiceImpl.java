@@ -1,12 +1,13 @@
 package com.reggit.demo.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.itheima.reggie.bean.Employee;
-import com.itheima.reggie.bean.utilBean.PageDto;
-import com.itheima.reggie.common.R;
-import com.itheima.reggie.mapper.EmployeeMapper;
-import com.itheima.reggie.service.EmployeeService;
+import com.reggit.demo.bean.Employee;
+import com.reggit.demo.bean.utilBean.PageDto;
+import com.reggit.demo.common.R;
+import com.reggit.demo.mapper.EmployeeMapper;
+import com.reggit.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,12 +74,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
      * @return
      */
     @Override
-    public R<PageDto<Employee>> getPage(HttpServletRequest request, int page, int pageSize, String name, Long id) {
-        int setoff = (page-1)*pageSize;
-        List<Employee> employees = mapper.getPage(setoff,pageSize,name,id);
-        int total = mapper.getTotal(name);
-        PageDto<Employee> page1 = new PageDto<>(employees,total);
-        return R.success(page1);
+    public R getPage(HttpServletRequest request, int page, int pageSize, String name, Long id) {
+        return null;
     }
 
     /**
@@ -88,11 +85,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
      * @return
      */
     @Override
-    public R<Integer> addEmployee(HttpServletRequest request, Employee employee, long id){
-        mapper.addEmployee(employee,id);
-        Long id1 = employee.getId();
-        Integer result = Math.toIntExact(id1);
-        return R.success(result);
+    public R addEmployee(HttpServletRequest request, Employee employee, long id){
+        return null;
     }
 
     /**
@@ -103,17 +97,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
      * @return
      */
     @Override
-    public R<Integer> editEmployee(HttpServletRequest request, Employee employee, long id) {
-        Integer status = employee.getStatus();
-        if (employee.getIdNumber()==null){
-            List<Employee> employees= mapper.getPage(0,1,null,employee.getId());
-            employee = employees.get(0);
-            employee.setStatus(status);
-        }
-        mapper.editEmployee(employee,id);
-        Long id1 = employee.getId();
-        Integer result = Math.toIntExact(id1);
-        return R.success(result);
+    public R editEmployee(HttpServletRequest request, Employee employee, long id) {
+        return null;
     }
 
 
